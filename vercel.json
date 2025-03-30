@@ -3,9 +3,9 @@
     "name": "connectingids",
     "builds": [
       {
-        "src": "ServerSide/src/index.js",
+        "src": "server/src/index.js",
         "use": "@vercel/node",
-        "config": { "includeFiles": ["ServerSide/src/**"] }
+        "config": { "includeFiles": ["server/src/**"] }
       },
       {
         "src": "Adminside/package.json",

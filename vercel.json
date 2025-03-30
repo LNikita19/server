@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "name": "connectingids",
+    "builds": [
+      {
+        "src": "ServerSide/src/index.js",
+        "use": "@vercel/node",
+        "config": { "includeFiles": ["ServerSide/src/**"] }
+      },
+      {
+        "src": "Adminside/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "Adminside/public"
+        }
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "server/src/index.js" }
+    ]
+  }

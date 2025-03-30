@@ -2,20 +2,20 @@
     "version": 2,
     "name": "connectingids",
     "builds": [
-      {
-        "src": "server/src/index.js",
-        "use": "@vercel/node",
-        "config": { "includeFiles": ["server/src/**"] }
-      },
-      {
-        "src": "Adminside/package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "Adminside/public"
+        {
+            "src": "src/index.js",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": [
+                    "src/**"
+                ]
+            }
         }
-      }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "server/src/index.js" }
+        {
+            "src": "/(.*)",
+            "dest": "src/index.js"
+        }
     ]
-  }
+}

@@ -6,7 +6,7 @@ const multer = require('multer');
 const aboutData = async (req, res) => {
   try {
     const { Heading, Description } = req.body;
-    const Photos = req.files.map((file) => file.path); // Extract file paths
+    const Photos = req.files.map((file) => file.buffer.toString("base64")); // Store as Base64
 
     const about = new aboutModel({
       Heading,

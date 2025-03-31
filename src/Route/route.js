@@ -144,8 +144,8 @@ const upload1 = multer({
   storage1: storage1,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
 }).array("Photos", 5);
-router.post('/createaboutData', upload1, aboutData);
-router.put('/updateaboutData/:aboutId', upload1, updateaboutData);
+router.post('/createaboutData', upload.array("Photos", 5),aboutData);
+router.put('/updateaboutData/:aboutId', upload.array("Photos", 5), updateaboutData);
 // router.post("/createaboutData", upload.single("Photo"), aboutData);
 router.get("/getaboutData", getaboutData);
 router.get("/getaboutById/:aboutId", getBaboutyId);

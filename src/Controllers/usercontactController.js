@@ -27,8 +27,8 @@ const userContactData = async (req, res) => {
     });
 
     const mailOptions = {
-      from: "nikitalilhore@gmail.com",
-      to: "nikitalilhore123@gmail.com", // ✅ Owner Email
+      from: "info@shyama-yoga.com",
+      to: "info@shyama-yoga.com", // ✅ Owner Email
       subject: "New Contact Form Submission",
       text: `
         Name: ${Name}

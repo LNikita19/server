@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 mongoose
   .connect(
-    "mongodb+srv://qjoxqciedfjvrzyeyh:oVDaqdgLGKDxYT58@cluster0.kczadan.mongodb.net/shyamwebsite",
+    "mongodb+srv://vevaso4419:wklqDg9qt0BHVZbD@cluster0.jfow2rg.mongodb.net/shyamawebsite",
     {
       useNewUrlParser: true,
     }

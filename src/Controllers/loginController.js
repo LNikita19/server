@@ -1,6 +1,8 @@
 const loginModel = require("../Models/loginModel");
 
 const jwt = require("jsonwebtoken");
+const express = require("express");
+const router = express.Router(); // ✅ Declare the router here
 
 const bcrypt = require("bcrypt");
 
@@ -96,6 +98,27 @@ const DeleteUser = async (req, res) => {
       .send({ status: false, msg: "server error", error: error.message });
   }
 };
+
+
+
+router.put("/reset-password", async (req, res) => {
+  try {
+    const { Email, Password } = req.body;
+
+    const user = await loginModel.findOne({ Email });
+    if (!user) {
+      return res.status(404).send({ status: false, msg: "User not found" });
+    }
+
+    const hashedPassword = await bcrypt.hash(Password, 10);
+    user.Password = hashedPassword;
+    await user.save();
+
+    return res.status(200).send({ status: true, msg: "Password updated" });
+  } catch (err) {
+    return res.status(500).send({ status: false, msg: "Server error", error: err.message });
+  }
+});
 
 module.exports = {
   createUser,

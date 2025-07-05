@@ -10,6 +10,7 @@ const app = express();
 const allowedOrigins = [
   "https://shyama-yoga.com",
   "https://adminside.shyama-yoga.com",
+  "https://server-six-beryl.vercel.app/",
   "http://localhost:3001",
   "http://localhost:4000",
   "http://localhost:3002",

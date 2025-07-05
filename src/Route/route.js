@@ -144,7 +144,7 @@ const upload1 = multer({
   storage1: storage1,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
 }).array("Photos", 5);
-router.post('/createaboutData', upload.array("Photos", 5),aboutData);
+router.post('/createaboutData', upload.array("Photos", 5), aboutData);
 router.put('/updateaboutData/:aboutId', upload.array("Photos", 5), updateaboutData);
 // router.post("/createaboutData", upload.single("Photo"), aboutData);
 router.get("/getaboutData", getaboutData);
@@ -198,7 +198,6 @@ router.put("/updatefooterData/:footerId", upload.single("Photo"), updatefooterDa
 router.delete("/Deletefooterdata", Deletefooterdata);
 router.delete("/DeleteBfooteryId/:footerId", DeleteBfooteryId);
 
-//user Login
 router.post("/createUser", createUser);
 router.post("/userLogin", userLogin);
 router.get("/getusersData", getusersData);

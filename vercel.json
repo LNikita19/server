@@ -3,17 +3,19 @@
     "name": "connectingids",
     "builds": [
         {
-            "src": "package.json",
-            "use": "@vercel/static-build",
+            "src": "src/index.js",
+            "use": "@vercel/node",
             "config": {
-                "distDir": "build"
+                "includeFiles": [
+                    "src/**"
+                ]
             }
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "src/index.js"
         }
     ]
 }

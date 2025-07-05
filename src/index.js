@@ -15,6 +15,8 @@ const allowedOrigins = [
   "http://localhost:3002",
   "http://localhost:3000",
   "https://server-9ao7.vercel.app",
+  "https://user-xi-silk.vercel.app/",
+  "https://admin-steel-phi.vercel.app/"
 ];
 
 app.use(

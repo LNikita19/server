@@ -100,12 +100,12 @@ const DeleteUser = async (req, res) => {
 };
 
 
-
-router.put("/reset-password", async (req, res) => {
+const resetPassword = async (req, res) => {
   try {
     const { Email, Password } = req.body;
 
     const user = await loginModel.findOne({ Email });
+    console.log(user);
     if (!user) {
       return res.status(404).send({ status: false, msg: "User not found" });
     }
@@ -118,11 +118,12 @@ router.put("/reset-password", async (req, res) => {
   } catch (err) {
     return res.status(500).send({ status: false, msg: "Server error", error: err.message });
   }
-});
+};
 
 module.exports = {
   createUser,
   userLogin,
   getusersData,
+  resetPassword,
   DeleteUser,
 };

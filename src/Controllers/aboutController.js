@@ -20,26 +20,38 @@ const aboutData = async (req, res) => {
     console.error("Error saving about data:", err);
     res.status(500).json({ status: false, message: "Server Error" });
   }
-}
+};
 
 
 const updateaboutData = async (req, res) => {
   try {
     const { Heading, Description } = req.body;
-    const Photos = req.files.map((file) => file.path); // Extract file paths
+    const id = req.params.id;
+    console.log("Updating ID:", id); // ✅ log ID
+
+    if (!id) {
+      return res.status(400).json({ status: false, message: "Missing ID in request" });
+    }
+
+    const Photos = req.files?.map((file) => file.path) || [];
 
     const updatedAbout = await aboutModel.findByIdAndUpdate(
-      req.params.id,
+      id,
       { Heading, Description, Photos },
       { new: true }
     );
+
+    if (!updatedAbout) {
+      return res.status(404).json({ status: false, message: "Document not found" });
+    }
 
     res.json({ status: true, data: updatedAbout });
   } catch (err) {
     console.error("Error updating about data:", err);
     res.status(500).json({ status: false, message: "Server Error" });
   }
-}
+};
+
 
 const getaboutData = async (req, res) => {
   try {

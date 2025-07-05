@@ -55,6 +55,7 @@ const {
   userLogin,
   getusersData,
   DeleteUser,
+  resetPassword,
 } = require("../Controllers/loginController");
 
 const { onlineclassData,
@@ -145,7 +146,7 @@ const upload1 = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
 }).array("Photos", 5);
 router.post('/createaboutData', upload.array("Photos", 5), aboutData);
-router.put('/updateaboutData/:aboutId', upload.array("Photos", 5), updateaboutData);
+router.put("/updateaboutData/:id", upload.array("Photos", 5), updateaboutData);
 // router.post("/createaboutData", upload.single("Photo"), aboutData);
 router.get("/getaboutData", getaboutData);
 router.get("/getaboutById/:aboutId", getBaboutyId);
@@ -199,6 +200,7 @@ router.delete("/Deletefooterdata", Deletefooterdata);
 router.delete("/DeleteBfooteryId/:footerId", DeleteBfooteryId);
 
 router.post("/createUser", createUser);
+router.put("/resetPassword", resetPassword);
 router.post("/userLogin", userLogin);
 router.get("/getusersData", getusersData);
 router.delete("/DeleteUser", DeleteUser);

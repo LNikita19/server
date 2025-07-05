@@ -67,14 +67,14 @@ const app = express();
 const allowedOrigins = [
   "https://shyama-yoga.com",
   "https://adminside.shyama-yoga.com",
-  "https://server-six-beryl.vercel.app/",
+  "https://server-six-beryl.vercel.app",
   "http://localhost:3001",
   "http://localhost:4000",
   "http://localhost:3002",
   "http://localhost:3000",
   "https://server-9ao7.vercel.app",
-  "https://user-xi-silk.vercel.app/",
-  "https://admin-steel-phi.vercel.app/"
+  "https://user-xi-silk.vercel.app",
+  "https://admin-steel-phi.vercel.app"
 ];
 
 // ✅ CORS setup with origin echo

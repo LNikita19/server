@@ -14,6 +14,7 @@ const allowedOrigins = [
   "http://localhost:4000",
   "http://localhost:3002",
   "http://localhost:3000",
+  "https://server-9ao7.vercel.app",
 ];
 
 app.use(

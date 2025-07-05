@@ -11,8 +11,9 @@ const allowedOrigins = [
   "https://shyama-yoga.com",
   "https://adminside.shyama-yoga.com",
   "http://localhost:3001",
-  "http://localhost:3000",
+  "http://localhost:4000",
   "http://localhost:3002",
+  "http://localhost:3000",
 ];
 
 app.use(

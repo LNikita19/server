@@ -26,21 +26,25 @@ const aboutData = async (req, res) => {
 const updateaboutData = async (req, res) => {
   try {
     const { Heading, Description } = req.body;
-    const id = req.params.id;
-    console.log("Updating ID:", id); // ✅ log ID
+    const aboutId = req.params.aboutId;
+    // console.log("Updating ID:", aboutId); // ✅ log ID
 
-    if (!id) {
+    if (!aboutId) {
       return res.status(400).json({ status: false, message: "Missing ID in request" });
     }
 
-    const Photos = req.files?.map((file) => file.path) || [];
-
+    // const Photos = req.files?.map((file) => file.buffer.toString("base64")) || [];
+    const Photos = req.files?.map((file) => {
+      const mimeType = file.mimetype; // e.g., "image/png" or "image/jpeg"
+      const base64 = file.buffer.toString("base64");
+      return `data:${mimeType};base64,${base64}`;
+    }) || [];
     const updatedAbout = await aboutModel.findByIdAndUpdate(
-      id,
+      aboutId,
       { Heading, Description, Photos },
       { new: true }
     );
-
+    // console.log("Updated About Data:", updatedAbout); // ✅ log updated data
     if (!updatedAbout) {
       return res.status(404).json({ status: false, message: "Document not found" });
     }
@@ -51,6 +55,7 @@ const updateaboutData = async (req, res) => {
     res.status(500).json({ status: false, message: "Server Error" });
   }
 };
+
 
 
 const getaboutData = async (req, res) => {

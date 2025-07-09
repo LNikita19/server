@@ -1,17 +1,20 @@
 const onlineclassModel = require("../Models/onlineclassModel");
 const onlineclassData = async (req, res) => {
     try {
-        const { Photo, selectProgram, programFees, startDate, endDate, programTiming, selectLanguage, youTubeLink, Description, faq } = req.body;
+        const { Photo, selectProgram, googleLink, programFees, startDate, endDate, programTiming, selectLanguage, youTubeLink, Description, faq } = req.body;
+        // ✅ FIXED LINE
+
 
         let parsedFaq = [];
         if (typeof faq === "string") {
-            parsedFaq = JSON.parse(faq);  // Parse if it's a string
+            parsedFaq = JSON.parse(faq);
         } else if (Array.isArray(faq)) {
-            parsedFaq = faq;  // Directly assign if it's already an array
+            parsedFaq = faq;
         }
 
         const newData = await onlineclassModel.create({
             selectProgram,
+            googleLink,
             programFees,
             startDate,
             endDate,
@@ -20,7 +23,7 @@ const onlineclassData = async (req, res) => {
             selectLanguage,
             youTubeLink,
             Description,
-            faq: parsedFaq,  // ✅ Ensure faq is an array
+            faq: parsedFaq,
         });
 
         return res.status(201).send({
@@ -67,7 +70,7 @@ const getonlineById = async (req, res) => {
 
 const updateOnlineData = async (req, res) => {
     try {
-        const { id, youTubeLink, Description, faq, selectProgram, endDate, programFees, startDate, Photo, programTiming, selectLanguage } = req.body;
+        const { id, youTubeLink, googleLink, Description, faq, selectProgram, endDate, programFees, startDate, Photo, programTiming, selectLanguage } = req.body;
 
         let onlineclassId = req.params.onlineclassId;
         let updateBody = await onlineclassModel.findOneAndUpdate(
@@ -80,6 +83,7 @@ const updateOnlineData = async (req, res) => {
                     programFees: programFees,
                     Photo: Photo,
                     youTubeLink: youTubeLink,
+                    googleLink: googleLink,
                     Description: Description,
                     startDate: startDate,
                     faq: faq,

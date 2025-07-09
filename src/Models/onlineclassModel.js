@@ -34,9 +34,13 @@ const OnlineClassSchema = new mongoose.Schema(
         Description: {
             type: String,
         },
+        googleLink: {
+            type: String,
+        },
+
         faq: [{
             question: { type: String },
-            answer: { type: String}
+            answer: { type: String }
         }],
         isDeleted: {
             type: Boolean,

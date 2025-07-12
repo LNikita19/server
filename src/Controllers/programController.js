@@ -123,36 +123,51 @@ const Deleteprogramdata = async (req, res) => {
             .send({ status: false, msg: "server error", error: error.message });
     }
 };
+// const DeleteprogramById = async (req, res) => {
+//     try {
+//         let programId = req.params.programId;
+
+
+
+
+//         const existingDocument = await programModel.findById(programId);
+//         if (!existingDocument) {
+//             return res.status(404).send({ status: false, message: "Document not found" });
+//         }
+
+//         if (existingDocument.isDeleted) {
+//             return res.status(400).send({ status: false, message: "Data has already been deleted." });
+//         }
+
+//         // Soft delete the document by updating isDeleted
+//         await programModel.findByIdAndDelete(
+//             programId,
+//             { $set: { isDeleted: true, deletedAt: new Date() } },
+//             { new: true }
+//         );
+
+//         return res.status(200).send({ status: true, message: "Data deleted successfully." });
+//     } catch (err) {
+//         return res.status(500).send({
+//             status: false,
+//             msg: "Server error",
+//             error: err.message,
+//         });
+//     }
+// };
 const DeleteprogramById = async (req, res) => {
     try {
-        let programId = req.params.programId;
+        const programId = req.params.programId;
 
+        const deleted = await programModel.findByIdAndDelete(programId);
 
-
-
-        const existingDocument = await programModel.findById(programId);
-        if (!existingDocument) {
-            return res.status(404).send({ status: false, message: "Document not found" });
+        if (!deleted) {
+            return res.status(404).send({ status: false, message: "Program not found" });
         }
 
-        if (existingDocument.isDeleted) {
-            return res.status(400).send({ status: false, message: "Data has already been deleted." });
-        }
-
-        // Soft delete the document by updating isDeleted
-        await programModel.findByIdAndDelete(
-            programId,
-            { $set: { isDeleted: true, deletedAt: new Date() } },
-            { new: true }
-        );
-
-        return res.status(200).send({ status: true, message: "Data deleted successfully." });
+        return res.status(200).send({ status: true, message: "Program deleted permanently" });
     } catch (err) {
-        return res.status(500).send({
-            status: false,
-            msg: "Server error",
-            error: err.message,
-        });
+        return res.status(500).send({ status: false, error: err.message });
     }
 };
 

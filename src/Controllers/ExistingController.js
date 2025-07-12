@@ -123,39 +123,55 @@ const Deleteexistdata = async (req, res) => {
             .send({ status: false, msg: "server error", error: error.message });
     }
 };
+// const DeleteexistById = async (req, res) => {
+//     try {
+//         let ExistingId = req.params.ExistingId;
+
+
+
+
+//         const existingDocument = await ExistingModel.findById(ExistingId);
+//         if (!existingDocument) {
+//             return res.status(404).send({ status: false, message: "Document not found" });
+//         }
+
+//         if (existingDocument.isDeleted) {
+//             return res.status(400).send({ status: false, message: "Data has already been deleted." });
+//         }
+
+//         // Soft delete the document by updating isDeleted
+//         await ExistingModel.findByIdAndDelete(
+//             ExistingId,
+//             { $set: { isDeleted: true, deletedAt: new Date() } },
+//             { new: true }
+//         );
+
+//         return res.status(200).send({ status: true, message: "Data deleted successfully." });
+//     } catch (err) {
+//         return res.status(500).send({
+//             status: false,
+//             msg: "Server error",
+//             error: err.message,
+//         });
+//     }
+// };
+
+
 const DeleteexistById = async (req, res) => {
     try {
-        let ExistingId = req.params.ExistingId;
+        const existingId = req.params.existingId;
 
+        const deleted = await ExistingModel.findByIdAndDelete(existingId);
 
-
-
-        const existingDocument = await ExistingModel.findById(ExistingId);
-        if (!existingDocument) {
-            return res.status(404).send({ status: false, message: "Document not found" });
+        if (!deleted) {
+            return res.status(404).send({ status: false, message: "Existing program not found" });
         }
 
-        if (existingDocument.isDeleted) {
-            return res.status(400).send({ status: false, message: "Data has already been deleted." });
-        }
-
-        // Soft delete the document by updating isDeleted
-        await ExistingModel.findByIdAndDelete(
-            ExistingId,
-            { $set: { isDeleted: true, deletedAt: new Date() } },
-            { new: true }
-        );
-
-        return res.status(200).send({ status: true, message: "Data deleted successfully." });
+        return res.status(200).send({ status: true, message: "Existing program deleted permanently" });
     } catch (err) {
-        return res.status(500).send({
-            status: false,
-            msg: "Server error",
-            error: err.message,
-        });
+        return res.status(500).send({ status: false, error: err.message });
     }
 };
-
 
 module.exports = {
     existingData,

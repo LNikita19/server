@@ -171,36 +171,53 @@ const deleteComboProgram = async (req, res) => {
     }
 };
 
-// Soft Delete Combo Program by ID
+// // Soft Delete Combo Program by ID
+// const deleteComboProgramById = async (req, res) => {
+//     try {
+//         let comboId = req.params.comboId;
+
+
+
+//         const existingDocument = await comboModel.findById(comboId);
+//         if (!existingDocument) {
+//             return res.status(404).send({ status: false, message: "Document not found" });
+//         }
+
+//         if (existingDocument.isDeleted) {
+//             return res.status(400).send({ status: false, message: "Data has already been deleted." });
+//         }
+
+//         // Soft delete the document by updating isDeleted
+//         await comboModel.findByIdAndDelete(
+//             comboId,
+//             { $set: { isDeleted: true, deletedAt: new Date() } },
+//             { new: true }
+//         );
+
+//         return res.status(200).send({ status: true, message: "Data deleted successfully." });
+//     } catch (err) {
+//         return res.status(500).send({
+//             status: false,
+//             msg: "Server error",
+//             error: err.message,
+//         });
+//     }
+// };
+
+
 const deleteComboProgramById = async (req, res) => {
     try {
-        let comboId = req.params.comboId;
+        const comboId = req.params.comboId;
 
+        const deleted = await comboModel.findByIdAndDelete(comboId);
 
-
-        const existingDocument = await comboModel.findById(comboId);
-        if (!existingDocument) {
-            return res.status(404).send({ status: false, message: "Document not found" });
+        if (!deleted) {
+            return res.status(404).send({ status: false, message: "Combo program not found" });
         }
 
-        if (existingDocument.isDeleted) {
-            return res.status(400).send({ status: false, message: "Data has already been deleted." });
-        }
-
-        // Soft delete the document by updating isDeleted
-        await comboModel.findByIdAndDelete(
-            comboId,
-            { $set: { isDeleted: true, deletedAt: new Date() } },
-            { new: true }
-        );
-
-        return res.status(200).send({ status: true, message: "Data deleted successfully." });
+        return res.status(200).send({ status: true, message: "Combo program deleted permanently" });
     } catch (err) {
-        return res.status(500).send({
-            status: false,
-            msg: "Server error",
-            error: err.message,
-        });
+        return res.status(500).send({ status: false, error: err.message });
     }
 };
 

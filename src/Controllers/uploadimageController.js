@@ -23,16 +23,16 @@ const uploadImageData = async (req, res) => {
 
 const getImageDataData = async (req, res) => {
     try {
-        const uploadImageData = await uploadImageModel.find();
+        const uploadImageData = await uploadImageModel.find({ isDeleted: { $ne: true } });
         res.status(200).send({
             status: true,
-            msg: "uploadImageData retrieved succesfully",
+            msg: "uploadImageData retrieved successfully",
             data: uploadImageData,
         });
     } catch (err) {
         return res
             .status(500)
-            .send({ status: false, msg: "server error", error: err.message });
+            .send({ status: false, msg: "Server error", error: err.message });
     }
 };
 
@@ -92,21 +92,22 @@ const DeleteByImageDataId = async (req, res) => {
     try {
         let uploadImageId = req.params.uploadImageId;
 
+        // Check existence and isDeleted status first
+        const existing = await uploadImageModel.findById(uploadImageId);
+        if (!existing) {
+            return res.status(404).send({ status: false, message: "Page not found" });
+        }
 
-        // Find and update in a single query
-        const page = await uploadImageModel.findByIdAndUpdate(
+        if (existing.isDeleted) {
+            return res.status(400).send({ status: false, message: "Data has already been deleted." });
+        }
+
+        // Perform soft delete
+        await uploadImageModel.findByIdAndUpdate(
             uploadImageId,
             { $set: { isDeleted: true, deletedAt: new Date() } },
             { new: true }
         );
-
-        if (!page) {
-            return res.status(404).send({ status: false, message: "Page not found" });
-        }
-
-        if (page.isDeleted) {
-            return res.status(400).send({ status: false, message: "Data has already been deleted." });
-        }
 
         return res.status(200).send({ status: true, message: "Data deleted successfully." });
     } catch (err) {
@@ -117,6 +118,7 @@ const DeleteByImageDataId = async (req, res) => {
         });
     }
 };
+
 
 module.exports = {
     uploadImageData,

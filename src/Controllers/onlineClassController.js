@@ -1,10 +1,12 @@
 const onlineclassModel = require("../Models/onlineclassModel");
 const onlineclassData = async (req, res) => {
     try {
-        const { Photo, selectProgram, googleLink, programFees, startDate, endDate, programTiming, selectLanguage, youTubeLink, Description, faq } = req.body;
-        // ✅ FIXED LINE
+        const { selectProgram, googleLink, programFees, startDate, endDate, programTiming, selectLanguage, youTubeLink, Description, faq } = req.body;
 
+        // Get uploaded photo file
+        const photoBuffer = req.file ? req.file.buffer.toString("base64") : null;
 
+        // Parse FAQ if it's stringified
         let parsedFaq = [];
         if (typeof faq === "string") {
             parsedFaq = JSON.parse(faq);
@@ -18,13 +20,14 @@ const onlineclassData = async (req, res) => {
             programFees,
             startDate,
             endDate,
-            Photo,
+            Photo: photoBuffer, // ✅ Save image as base64 string
             programTiming,
             selectLanguage,
             youTubeLink,
             Description,
             faq: parsedFaq,
         });
+
 
         return res.status(201).send({
             status: true,

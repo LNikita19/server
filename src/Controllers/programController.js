@@ -74,7 +74,7 @@ const getBprogramyId = async (req, res) => {
 
 const updateprogramData = async (req, res) => {
     try {
-        console.log("Update Request Body:", req.body); // Debugging
+        // console.log("Update Request Body:", req.body); // Debugging
 
         const { id, youTubeLink, faq, Quto, Description, selectProgram, endDate, programFees, startDate, Photo, programTiming, selectLanguage } = req.body;
 

@@ -21,14 +21,15 @@ const userContactData = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "nikitalilhore123@gmail.com",
-        pass: "dzjfxzvmwndjwmme",
+        user: "support@shyama-yoga.com",
+        pass: "hxyopipemeqfgvtz",
+
       },
     });
 
     const mailOptions = {
-      from: "info@shyama-yoga.com",
-      to: "info@shyama-yoga.com", // ✅ Owner Email
+      from: "support@shyama-yoga.com",
+      to: "support@shyama-yoga.com", // ✅ Owner Email
       subject: "New Contact Form Submission",
       text: `
         Name: ${Name}

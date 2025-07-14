@@ -21,8 +21,8 @@ const userContactData = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "support@shyama-yoga.com",
-        pass: "hxyopipemeqfgvtz",
+        user: "bsharmila265@gmail.com",
+        pass: "fkvrswtrbcmtwooq",
 
       },
     });

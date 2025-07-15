@@ -38,12 +38,13 @@ const updateaboutData = async (req, res) => {
       return res.status(400).json({ status: false, message: "Missing ID in request" });
     }
 
-    const Photos = req.files?.map((file) => file.buffer.toString("base64")) || [];
-    // const Photos = req.files.map((file) => {
-    //   const base64 = file.buffer.toString("base64");
-    //   const mimeType = file.mimetype; // e.g. image/jpeg
-    //   return `data:${mimeType};base64,${base64}`;
-    // }) || [];
+    // const Photos = req.files?.map((file) => file.buffer.toString("base64")) || [];
+    const Photos = req.files?.map((file) => {
+      const base64 = file.buffer.toString("base64");
+      const mimeType = file.mimetype;
+      return `data:${mimeType};base64,${base64}`;
+    }) || [];
+
     const updatedAbout = await aboutModel.findByIdAndUpdate(
       aboutId,
       { Heading, Description, Photos },
